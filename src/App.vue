@@ -2,7 +2,11 @@
     <div id="app">
         <n-layout>
             <n-layout-header>
-                <h1>mini TO-DO</h1>
+                <h1>TO-DO</h1>
+                <n-button-group>
+                    <n-button @click="on1"> 主页 </n-button>
+                    <n-button @click="on2"> 归档页 </n-button>
+                </n-button-group>
             </n-layout-header>
             <n-layout-content>
                 <router-view />
@@ -19,7 +23,18 @@ import {
     NGridItem,
     NGrid,
     NH1,
+    NButton,
+    NButtonGroup
 } from "naive-ui";
+import { useRouter } from "vue-router";
+const router = useRouter()
+const on1 = ()=>{
+    router.push({path:'/'});
+}
+const on2 = ()=>{
+    router.push({path:'/archive'});
+}
+
 </script>
 
 <style lang="postcss" scoped>
@@ -37,5 +52,8 @@ import {
         max-width: 360px;
         
     }
+    & .n-button {
+    margin: 10px;
+  }
 }
 </style>

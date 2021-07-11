@@ -6,13 +6,14 @@
             </n-icon>
         </template>
         <swiper
-            :initial-slide="0"
+            :initial-slide="1"
             :slides-per-view="1"
             :resistance-ratio="0"
             :speed="200"
             @transitionEnd="onTransitionEnd"
+            @tap="onTap"
         >
-            <!-- <swiper-slide>完成</swiper-slide> -->
+            <swiper-slide class="finish-slide">完成</swiper-slide>
             <swiper-slide>{{ task.content }}</swiper-slide>
             <swiper-slide class="delete-slide">删除</swiper-slide>
         </swiper>
@@ -30,14 +31,21 @@ const props = defineProps({
     task: Object,
     taskIndex: Number,
 });
-const emit = defineEmit(["delete"]);
+const emit = defineEmit(["delete","edit","finish"]);
 
 const onTransitionEnd = (instance) => {
     const { activeIndex } = instance;
-    if (activeIndex === 1) {
-        emit("delete");
-        instance.destory();
+    if (activeIndex === 0) {
+        emit("finish");
+        instance.destroy();
     }
+    else if (activeIndex === 2) {
+        emit("delete");
+        instance.destroy();
+    }
+};
+const onTap = (instance) => {
+  emit("edit");
 };
 </script>
 
@@ -71,6 +79,14 @@ const onTransitionEnd = (instance) => {
         background: tomato;
         padding-left: 16px;
         justify-content: flex-start;
+        box-sizing:border-box;
+    }
+    & .finish-slide {
+        color: white;
+        background: #0099ff;
+        padding-right: 16px;
+        justify-content: flex-end;
+        box-sizing:border-box;
     }
 }
 
