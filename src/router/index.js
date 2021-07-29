@@ -1,23 +1,23 @@
 import * as VueRouter from "vue-router";
-import Main from "../views/Main.vue";
-import Archive from "../views/Archive.vue";
+import preview from "../views/preview.vue";
+import Editview from "../views/Editview.vue";
 
 export default VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
     routes: [
         {
-            path: "/",
-            name: "main",
-            component: Main,
+            path: "/preview",
+            name: "preview",
+            component: preview,
         },
         {
-            path: "/archive",
-            name: "archive",
-            component: Archive,
+            path: "/Editview",
+            name: "Editview",
+            component: Editview,
         },
         {
             path: '/:pathMatch(.*)',
-            redirect: '/'
+            redirect: '/preview'
         }
     ]
 });

@@ -2,10 +2,9 @@
     <div id="app">
         <n-layout>
             <n-layout-header>
-                <h1>TO-DO</h1>
+                <h1>note</h1>
                 <n-button-group>
-                    <n-button @click="on1"> 主页 </n-button>
-                    <n-button @click="on2"> 归档页 </n-button>
+                    <n-button @click="on1"> {{routeName}} </n-button>
                 </n-button-group>
             </n-layout-header>
             <n-layout-content>
@@ -16,6 +15,7 @@
 </template>
 
 <script setup>
+import { computed } from "@vue/runtime-core";
 import {
     NLayout,
     NLayoutHeader,
@@ -26,14 +26,19 @@ import {
     NButton,
     NButtonGroup
 } from "naive-ui";
-import { useRouter } from "vue-router";
+import { useRouter,useRoute } from "vue-router";
 const router = useRouter()
+const route = useRoute();
+const routeName = computed(() => {
+    if(route.name === "preview") return "编辑"
+    if(route.name === "Editview") return "预览"
+})
 const on1 = ()=>{
-    router.push({path:'/'});
+    if(route.name === "preview") { router.push("Editview")}
+    if(route.name === "Editview") { router.push("preview")}
+    
 }
-const on2 = ()=>{
-    router.push({path:'/archive'});
-}
+
 
 </script>
 
